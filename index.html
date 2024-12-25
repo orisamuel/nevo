@@ -1,0 +1,264 @@
+<html>
+<head>
+    <title>חנוכה שמח</title>
+    <style>
+        body {
+            background-color: #fffcf2;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            direction: rtl;
+        }
+        h1 {
+            color: #ff6600;
+        }
+        h2, p {
+            color: #333;
+        }
+        img {
+            margin-top: 20px;
+            border: 3px solid #ff6600;
+            border-radius: 15px;
+        }
+        .dreidel-btn {
+            font-size: 20px;
+            padding: 10px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .dreidel-btn:hover {
+            background-color: #e55d00;
+        }
+        #dreidel-result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .audio-player {
+            margin-top: 20px;
+        }
+        .trivia-btn {
+            font-size: 18px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .trivia-btn:hover {
+            background-color: #0056b3;
+        }
+        #trivia-result {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>חנוכה שמח!</h1>
+    <p>ברוכים הבאים לאתר שלנו על חג החנוכה!</p>
+
+    <div>
+        <img id="hanukkiah" src="" alt="חנוכיה" width="300">
+    </div>
+
+    <h2>היום הוא יום ה-<span id="day">__</span> של חנוכה</h2>
+    <p>צריך להדליק <span id="candles">__</span> נרות</p>
+
+    <!-- Dreidel Game -->
+    <h2>שחקו בסביבון!</h2>
+    <button class="dreidel-btn" onclick="spinDreidel()">סובב סביבון</button>
+    <div id="dreidel-result"></div>
+
+    <!-- Chanukah Song -->
+    <h2>שירי חנוכה</h2>
+    <audio class="audio-player" controls>
+        <source src="מחרוזת חנוכה.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <p>האזינו לשיר החג!</p>
+
+    <!-- Blessings Section -->
+    <h2>ברכות הדלקת נרות</h2>
+    <p>ברוך אתה ה' אלוקינו מלך העולם, אשר קדשנו במצוותיו וצוונו להדליק נר של חנוכה.</p>
+    <p>ברוך אתה ה' אלוקינו מלך העולם, שעשה ניסים לאבותינו בימים ההם בזמן הזה.</p>
+
+    <script>
+        // Function to update the day of Chanukah dynamically
+        function updateHanukkah() {
+            const today = new Date(); // Current date
+            const hanukkahStart = new Date('2024-12-26'); // Adjust the start date to the actual year
+            const day = Math.ceil((today - hanukkahStart) / (1000 * 60 * 60 * 24)) + 1;
+
+            if (day > 0 && day <= 8) {
+                // Update day and candle count
+                document.getElementById("day").innerText = day;
+                document.getElementById("candles").innerText = day;
+
+            } else {
+                // After Chanukah ends
+                document.getElementById("day").innerText = "עכשיו לא חנוכה!!";
+                document.getElementById("candles").innerText = "0";
+            }
+            document.getElementById("hanukkiah").src = `חנוכיה.png`;
+
+        }
+
+        // Dreidel Game Logic
+        function spinDreidel() {
+            const results = ['נ', 'ג', 'ה', 'פ'];
+            const randomIndex = Math.floor(Math.random() * results.length);
+            const result = results[randomIndex];
+            document.getElementById("dreidel-result").innerText = `התוצאה: ${result}`;
+        }
+
+        // Call the function to initialize the content
+        updateHanukkah();
+    </script>
+    <h2>שאלת טריוויה לחנוכה</h2>
+    <p>באיזה שנה נחגג חג החנוכה לראשונה?</p>
+    <ul>
+        <li><input type="radio" name="chanukah-year" value="1"> לפני 2,200 שנה</li>
+        <li><input type="radio" name="chanukah-year" value="2"> לפני 1,500 שנה</li>
+        <li><input type="radio" name="chanukah-year" value="3"> לפני 3,000 שנה</li>
+    </ul>
+    <button class="trivia-btn" onclick="checkAnswer()">בדוק תשובה</button>
+    <div id="trivia-result"></div>
+    <h2>שאלת טריוויה 2</h2>
+    <p>מה משמעות המילה "חנוכה"?</p>
+    <ul>
+        <li><input type="radio" name="chanukah-meaning" value="1"> לחנוך</li>
+        <li><input type="radio" name="chanukah-meaning" value="2"> לחנות</li>
+        <li><input type="radio" name="chanukah-meaning" value="3"> לנצח</li>
+    </ul>
+    <button class="trivia-btn" onclick="checkAnswer2()">בדוק תשובה</button>
+    <div id="trivia-result-2"></div>
+    <h2>שאלת טריוויה 3</h2>
+    <p>כמה נרות יש בחנוכיה?</p>
+    <ul>
+        <li><input type="radio" name="chanukah-branches" value="1"> 7</li>
+        <li><input type="radio" name="chanukah-branches" value="2"> 8</li>
+        <li><input type="radio" name="chanukah-branches" value="3"> 9</li>
+    </ul>
+    <button class="trivia-btn" onclick="checkAnswer3()">בדוק תשובה</button>
+    <div id="trivia-result-3"></div>
+    <h2>שאלת טריוויה 4</h2>
+    <p>מהו המאכל המסורתי של חנוכה?</p>
+    <ul>
+        <li><input type="radio" name="chanukah-food" value="1"> סופגניות</li>
+        <li><input type="radio" name="chanukah-food" value="2"> מצות</li>
+        <li><input type="radio" name="chanukah-food" value="3"> גפילטע פיש</li>
+    </ul>
+    <button class="trivia-btn" onclick="checkAnswer4()">בדוק תשובה</button>
+    <div id="trivia-result-4"></div>
+    
+    
+    <script>
+        function checkAnswer() {
+            const options = document.getElementsByName('chanukah-year');
+            let selectedAnswer = null;
+    
+            // Check which option is selected
+            for (let option of options) {
+                if (option.checked) {
+                    selectedAnswer = option.value;
+                    break;
+                }
+            }
+    
+            const resultElement = document.getElementById('trivia-result');
+    
+            // Display the result
+            if (selectedAnswer === "1") {
+                resultElement.innerText = "נכון! חג החנוכה נחגג לראשונה לפני כ-2,200 שנה!";
+                resultElement.style.color = "green";
+            } else if (selectedAnswer) {
+                resultElement.innerText = "לא נכון. נסו שוב!";
+                resultElement.style.color = "red";
+            } else {
+                resultElement.innerText = "אנא בחרו תשובה!";
+                resultElement.style.color = "orange";
+            }
+        }
+        function checkAnswer2() {
+            const options = document.getElementsByName('chanukah-meaning');
+            let selectedAnswer = null;
+
+            for (let option of options) {
+                if (option.checked) {
+                    selectedAnswer = option.value;
+                    break;
+                }
+            }
+
+            const resultElement = document.getElementById('trivia-result-2');
+
+            if (selectedAnswer === "1") {
+                resultElement.innerText = "נכון! המילה 'חנוכה' מגיעה מהמילה 'חניכה'.";
+                resultElement.style.color = "green";
+            } else if (selectedAnswer) {
+                resultElement.innerText = "לא נכון. נסו שוב!";
+                resultElement.style.color = "red";
+            } else {
+                resultElement.innerText = "אנא בחרו תשובה!";
+                resultElement.style.color = "orange";
+            }
+        }
+        function checkAnswer3() {
+            const options = document.getElementsByName('chanukah-branches');
+            let selectedAnswer = null;
+
+            for (let option of options) {
+                if (option.checked) {
+                    selectedAnswer = option.value;
+                    break;
+                }
+            }
+
+            const resultElement = document.getElementById('trivia-result-3');
+
+            if (selectedAnswer === "3") {
+                resultElement.innerText = "נכון! בחנוכיה יש 9 נרות (8 נרות ושמש).";
+                resultElement.style.color = "green";
+            } else if (selectedAnswer) {
+                resultElement.innerText = "לא נכון. נסו שוב!";
+                resultElement.style.color = "red";
+            } else {
+                resultElement.innerText = "אנא בחרו תשובה!";
+                resultElement.style.color = "orange";
+            }
+        }
+        function checkAnswer4() {
+            const options = document.getElementsByName('chanukah-food');
+            let selectedAnswer = null;
+
+            for (let option of options) {
+                if (option.checked) {
+                    selectedAnswer = option.value;
+                    break;
+                }
+            }
+
+            const resultElement = document.getElementById('trivia-result-4');
+
+            if (selectedAnswer === "1") {
+                resultElement.innerText = "נכון! סופגניות הן המאכל המסורתי של חנוכה.";
+                resultElement.style.color = "green";
+            } else if (selectedAnswer) {
+                resultElement.innerText = "לא נכון. נסו שוב!";
+                resultElement.style.color = "red";
+            } else {
+                resultElement.innerText = "אנא בחרו תשובה!";
+                resultElement.style.color = "orange";
+            }
+        }
+    </script>
+    
+</body>
+</html>
+
